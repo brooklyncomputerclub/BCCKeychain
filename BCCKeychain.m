@@ -89,7 +89,7 @@ static NSString *BCCKeychainErrorDomain = @"BCCKeychainErrorDomain";
     list.count = 4;
     list.attr = attributes;
     
-    OSStatus status = SecKeychainItemCopyContent(item, NULL, &list, &length, &passwordBytes);
+    OSStatus status = SecKeychainItemCopyContent(item, NULL, &list, &passwordByteLength, &passwordBytes);
 	
 	if (status != noErr) {
 		if (error) {
@@ -115,7 +115,7 @@ static NSString *BCCKeychainErrorDomain = @"BCCKeychainErrorDomain";
 
 + (BOOL)storeUsername:(NSString *)username andPasswordData:(NSData *)passwordData forServiceName:(NSString *)serviceName updateExisting:(BOOL)updateExisting error:(NSError **)error
 {
-	if (!username || !password || !serviceName) {
+	if (!username || !passwordData || !serviceName) {
         if (error) {
             *error = [NSError errorWithDomain:BCCKeychainErrorDomain code:-2000 userInfo:nil];
         }
